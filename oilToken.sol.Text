@@ -1,13 +1,13 @@
 pragma solidity ^0.4.24;
 
 // ----------------------------------------------------------------------------
-// Sample token contract
+// Sample token contract /* ตัวอย่างสัญญาโทเค็น */
 //
-// Symbol        : {{Oil}} /* สัญลักษณ์เหรียญ */
-// Name          : {{Oil Token}}
-// Total supply  : {{1000000}}
-// Decimals      : {{8}}
-// Owner Account : {{0x9e4Da3aA695511d63514D9Cef026fcac82fB716A}}
+// Symbol        : {{Oil}} /* ใส่ชื่อเหรียญที่เราต้องการ */
+// Name          : {{Oil Token}} /* ชื่อเหรียญ ตามด้วย Token */
+// Total supply  : {{1000000}} /* ราคาเหรียญ */
+// Decimals      : {{8}}  /* ตำแหน่งทศนิยม */
+// Owner Account : {{0x9e4Da3aA695511d63514D9Cef026fcac82fB716A}} /* บัญชีกระเป๋าตัวเอง ให้คัดลอกที่ METAMASK ตรง Account */
 //
 // Enjoy.
 //
@@ -16,7 +16,7 @@ pragma solidity ^0.4.24;
 
 
 // ----------------------------------------------------------------------------
-// Lib: Safe Math
+// Lib: Safe Math /* ความปลอดภัยคณิตศาสตร์ */
 // ----------------------------------------------------------------------------
 contract SafeMath {
 
@@ -43,16 +43,16 @@ contract SafeMath {
 
 
 /**
-ERC Token Standard #20 Interface
-https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
+ERC Token Standard #20 Interface /* อินเทอร์เฟซ */
+https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md 
 */
-contract ERC20Interface {
-    function totalSupply() public constant returns (uint);
-    function balanceOf(address tokenOwner) public constant returns (uint balance);
-    function allowance(address tokenOwner, address spender) public constant returns (uint remaining);
-    function transfer(address to, uint tokens) public returns (bool success);
-    function approve(address spender, uint tokens) public returns (bool success);
-    function transferFrom(address from, address to, uint tokens) public returns (bool success);
+contract ERC20Interface {   /* ERC20 อินเทอร์เฟซ */
+    function totalSupply() public constant returns (uint); /* ฟังก์ชั่น และผลตอบแทนคงที่สาธารณะ */
+    function balanceOf(address tokenOwner) public constant returns (uint balance); /* ฟังก์ชั่น (ที่อยู่) ผลตอบแทนคงที่สาธารณะ (ยอดคงเหลือ) */
+    function allowance(address tokenOwner, address spender) public constant returns (uint remaining); /* ค่าเผื่อการทำงาน (ที่อยู่ tokenOwner, ที่อยู่ของผู้รับเงิน) ผลตอบแทนคงที่สาธารณะ (คงเหลืออยู่) */
+    function transfer(address to, uint tokens) public returns (bool success); /* การถ่ายโอนฟังก์ชัน (ที่อยู่, โทเค็น uint) ผลตอบแทนสาธารณะ (ความสำเร็จของบูล) */
+    function approve(address spender, uint tokens) public returns (bool success); /* ฟังก์ชั่น transferFrom (ที่อยู่จาก, ที่อยู่ไปยัง, โทเค็น uint) ผลตอบแทนสาธารณะ (ความสำเร็จของบูล) */
+    function transferFrom(address from, address to, uint tokens) public returns (bool success); 
 
     event Transfer(address indexed from, address indexed to, uint tokens);
     event Approval(address indexed tokenOwner, address indexed spender, uint tokens);
@@ -61,7 +61,7 @@ contract ERC20Interface {
 
 /**
 Contract function to receive approval and execute function in one call
-Borrowed from MiniMeToken
+Borrowed from MiniMeToken /* รับการอนุมัติและดำเนินการฟังก์ชั่นในการโทรครั้งเดียวยืมจาก MiniMeToken */
 */
 contract ApproveAndCallFallBack {
     function receiveApproval(address from, uint256 tokens, address token, bytes data) public;
@@ -69,38 +69,38 @@ contract ApproveAndCallFallBack {
 
 /**
 ERC20 Token, with the addition of symbol, name and decimals and assisted token transfers
+ /* โทเค็น ERC20 พร้อมการเพิ่มสัญลักษณ์ ชื่อ และทศนิยมและการโอนโทเค็นช่วยเหลือ */
 */
 contract oilToken is ERC20Interface, SafeMath {
-    string public symbol;
-    string public  name;
-    uint8 public decimals;
+    string public symbol; /* สัญลักษณ์สาธารณะสตริง */
+    string public  name; /* สตริงชื่อสาธารณะ */
+    uint8 public decimals; /* ทศนิยมสาธารณะ */
     uint public _totalSupply;
 
-    mapping(address => uint) balances; // เชื่อมต่อกับกระเป๋าตังค์เรา
-    mapping(address => mapping(address => uint)) allowed;
+    mapping(address => uint) balances;
+    mapping(address => mapping(address => uint)) allowed; 
 
 
     // ------------------------------------------------------------------------
     // Constructor
     // ------------------------------------------------------------------------
     constructor() public {
-        symbol = "Oil"; // ชื่อเหรียญ
-        name = "Oil Token";
-        decimals = 8;
-        _totalSupply = 1000000;
-        balances[0x9e4Da3aA695511d63514D9Cef026fcac82fB716A] = _totalSupply;
-        emit Transfer(address(0), 0x9e4Da3aA695511d63514D9Cef026fcac82fB716A, _totalSupply);
+        symbol = "Oil"; /* ใส่ชื่อเหรียญที่เราต้องการ */
+        name = "Oil Token"; /* ชื่อเหรียญ ตามด้วย Token */
+        decimals = 8; /* ตำแหน่งทศนิยม */
+        _totalSupply = 1000000; /* ราคาเหรียญ */ 
+        balances[0x9e4Da3aA695511d63514D9Cef026fcac82fB716A] = _totalSupply; /* บัญชีกระเป๋าตัวเอง ให้คัดลอกที่ METAMASK ตรง Account */
+        emit Transfer(address(0), 0x9e4Da3aA695511d63514D9Cef026fcac82fB716A, _totalSupply); /* บัญชีกระเป๋าตัวเอง ให้คัดลอกที่ METAMASK ตรง Account และตรวจสอบว่าตรงกับที่คัดลอกมาข้างต้นหรือเปล่า */
     }
 
-     // จำนวนเหรียญ
+     
     // ------------------------------------------------------------------------
     // Total supply 
     // ------------------------------------------------------------------------
     function totalSupply() public constant returns (uint) {
         return _totalSupply  - balances[address(0)];
     }
-
-     // จำนวนเหรียญที่ถูกสร้างขึ้น
+    
     // ------------------------------------------------------------------------
     // Get the token balance for account tokenOwner
     // ------------------------------------------------------------------------
@@ -108,11 +108,10 @@ contract oilToken is ERC20Interface, SafeMath {
         return balances[tokenOwner];
     }
 
-     // ส่งเหรียญไปยังเจ้าของกระเป๋านี้
     // ------------------------------------------------------------------------
-    // Transfer the balance from token owner's account to to account
-    // - Owner's account must have sufficient balance to transfer
-    // - 0 value transfers are allowed
+    // Transfer the balance from token owner's account to to account /*โอนยอดคงเหลือจากบัญชีของเจ้าของโทเค็นไปยังบัญชี */
+    // - Owner's account must have sufficient balance to transfer /* บัญชีของเจ้าของต้องมียอดเงินเพียงพอในการโอน */
+    // - 0 value transfers are allowed /* อนุญาตให้โอนค่า 0 ได้ */
     // ------------------------------------------------------------------------
     function transfer(address to, uint tokens) public returns (bool success) {
         balances[msg.sender] = safeSub(balances[msg.sender], tokens);
@@ -138,13 +137,12 @@ contract oilToken is ERC20Interface, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Transfer tokens from the from account to the to account
-    // 
-    // The calling account must already have sufficient tokens approve(...)-d
-    // for spending from the from account and
-    // - From account must have sufficient balance to transfer
-    // - Spender must have sufficient allowance to transfer
-    // - 0 value transfers are allowed
+    // Transfer tokens from the from account to the to account 
+    // The calling account must already have sufficient tokens approve(...)-d 
+    // for spending from the from account and 
+    // - From account must have sufficient balance to transfer 
+    // - Spender must have sufficient allowance to transfer 
+    // - 0 value transfers are allowed 
     // ------------------------------------------------------------------------
     function transferFrom(address from, address to, uint tokens) public returns (bool success) {
         balances[from] = safeSub(balances[from], tokens);
@@ -156,8 +154,8 @@ contract oilToken is ERC20Interface, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Returns the amount of tokens approved by the owner that can be
-    // transferred to the spender's account
+    // Returns the amount of tokens approved by the owner that can be /* คืนจำนวนโทเค็นที่ได้รับอนุมัติจากเจ้าของ */
+    // transferred to the spender's account /* โอนเข้าบัญชีผู้ใช้จ่าย */
     // ------------------------------------------------------------------------
     function allowance(address tokenOwner, address spender) public constant returns (uint remaining) {
         return allowed[tokenOwner][spender];
@@ -165,9 +163,9 @@ contract oilToken is ERC20Interface, SafeMath {
 
 
     // ------------------------------------------------------------------------
-    // Token owner can approve for spender to transferFrom(...) tokens
-    // from the token owner's account. The spender contract function
-    // receiveApproval(...) is then executed
+    // Token owner can approve for spender to transferFrom(...) tokens /* เจ้าของโทเค็นสามารถอนุมัติให้ผู้ใช้โอนจาก (...) โทเค็น */
+    // from the token owner's account. The spender contract function /* จากบัญชีของเจ้าของโทเค็น ฟังก์ชั่นสัญญาผู้ใช้จ่าย */
+    // receiveApproval(...) is then executed /* รับการอนุมัติ (...) จากนั้นดำเนินการ */
     // ------------------------------------------------------------------------
     function approveAndCall(address spender, uint tokens, bytes data) public returns (bool success) {
         allowed[msg.sender][spender] = tokens;
@@ -176,7 +174,7 @@ contract oilToken is ERC20Interface, SafeMath {
         return true;
     }
 
-    // ธุระกรรมทำเสร็จแล้วให้เริ่มต้นใหม่
+    
     // ------------------------------------------------------------------------
     // Don't accept ETH
     // ------------------------------------------------------------------------
