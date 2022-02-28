@@ -3,7 +3,7 @@ pragma solidity ^0.4.24;
 // ----------------------------------------------------------------------------
 // Sample token contract
 //
-// Symbol        : {{Oil}}
+// Symbol        : {{Oil}} /* สัญลักษณ์เหรียญ */
 // Name          : {{Oil Token}}
 // Total supply  : {{1000000}}
 // Decimals      : {{8}}
@@ -94,7 +94,7 @@ contract oilToken is ERC20Interface, SafeMath {
 
      // จำนวนเหรียญ
     // ------------------------------------------------------------------------
-    // Total supply
+    // Total supply 
     // ------------------------------------------------------------------------
     function totalSupply() public constant returns (uint) {
         return _totalSupply  - balances[address(0)];
