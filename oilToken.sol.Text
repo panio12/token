@@ -49,7 +49,9 @@ https://github.com/ethereum/EIPs/blob/master/EIPS/eip-20-token-standard.md
 contract ERC20Interface {   /* ERC20 อินเทอร์เฟซ */
     function totalSupply() public constant returns (uint); /* ฟังก์ชั่น และผลตอบแทนคงที่สาธารณะ */
     function balanceOf(address tokenOwner) public constant returns (uint balance); /* ฟังก์ชั่น (ที่อยู่) ผลตอบแทนคงที่สาธารณะ (ยอดคงเหลือ) */
-    function allowance(address tokenOwner, address spender) public constant returns (uint remaining); /* ค่าเผื่อการทำงาน (ที่อยู่ tokenOwner, ที่อยู่ของผู้รับเงิน) ผลตอบแทนคงที่สาธารณะ (คงเหลืออยู่) */
+    function allowance(address tokenOwner, address spender) public constant returns (uint remaining); 
+    /* ค่าเผื่อการทำงาน (ที่อยู่ tokenOwner, ที่อยู่ของผู้รับเงิน) ผลตอบแทนคงที่สาธารณะ (คงเหลืออยู่) */
+    
     function transfer(address to, uint tokens) public returns (bool success); /* การถ่ายโอนฟังก์ชัน (ที่อยู่, โทเค็น uint) ผลตอบแทนสาธารณะ (ความสำเร็จของบูล) */
     function approve(address spender, uint tokens) public returns (bool success); /* ฟังก์ชั่น transferFrom (ที่อยู่จาก, ที่อยู่ไปยัง, โทเค็น uint) ผลตอบแทนสาธารณะ (ความสำเร็จของบูล) */
     function transferFrom(address from, address to, uint tokens) public returns (bool success); 
@@ -90,7 +92,8 @@ contract oilToken is ERC20Interface, SafeMath {
         decimals = 8; /* ตำแหน่งทศนิยม */
         _totalSupply = 1000000; /* ราคาเหรียญ */ 
         balances[0x9e4Da3aA695511d63514D9Cef026fcac82fB716A] = _totalSupply; /* บัญชีกระเป๋าตัวเอง ให้คัดลอกที่ METAMASK ตรง Account */
-        emit Transfer(address(0), 0x9e4Da3aA695511d63514D9Cef026fcac82fB716A, _totalSupply); /* บัญชีกระเป๋าตัวเอง ให้คัดลอกที่ METAMASK ตรง Account และตรวจสอบว่าตรงกับที่คัดลอกมาข้างต้นหรือเปล่า */
+        emit Transfer(address(0), 0x9e4Da3aA695511d63514D9Cef026fcac82fB716A, _totalSupply); 
+        /* บัญชีกระเป๋าตัวเอง ให้คัดลอกที่ METAMASK ตรง Account และตรวจสอบว่าตรงกับที่คัดลอกมาข้างต้นหรือเปล่า */
     }
 
      
